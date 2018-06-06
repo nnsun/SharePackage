@@ -3,13 +3,6 @@ import threading
 
 port = 9999
 
-def get_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ip = s.getsockname()[0]
-    s.close()
-    return ip
-
 def main():
     ip = get_ip()
 
@@ -34,6 +27,14 @@ class ConnectionThread(threading.Thread):
             with open(file, 'rb') as f:
                 buffer = f.read()
                 self.client_socket.send(buffer)
+
+
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip = s.getsockname()[0]
+    s.close()
+    return ip
 
 
 if __name__ == "__main__":
