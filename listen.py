@@ -22,7 +22,6 @@ def main():
         ConnectionThread(conn, addr, files).start()
 
 
-
 class ConnectionThread(threading.Thread):
     def __init__(self, conn, addr, files):
         super().__init__()
@@ -31,16 +30,10 @@ class ConnectionThread(threading.Thread):
         self.addr = addr
 
     def run(self):
-        for file in files:
+        for file in self.files:
             with open(file, 'rb') as f:
                 buffer = f.read()
                 self.client_socket.send(buffer)
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
