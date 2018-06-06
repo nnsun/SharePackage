@@ -18,7 +18,7 @@ def main():
     server_socket.listen(25)
     while True:
         conn, addr = server_socket.accept()
-        files = conn.recv(4096).split(',')
+        files = conn.recv(4096).decode("utf-8").split(',')
         ConnectionThread(conn, addr, files).start()
 
 
