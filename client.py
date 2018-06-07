@@ -86,6 +86,7 @@ def install(package):
         peer = sock.recv(4096).decode("utf-8")
 
     assignment = assign_files(peers, files)
+    print(str(assignment))
     for peer in assignment:
         files = assignment[peer]
         ReceiveThread(peer, files).start()
