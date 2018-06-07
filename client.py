@@ -84,6 +84,8 @@ def install(package):
             break
         peer = sock.recv(4096).decode("utf-8")
 
+
+    print("FILES STRING REP: " + str(files))
     assignment = assign_files(peers, files)
     print(str(assignment))
     for peer in assignment:
@@ -141,7 +143,7 @@ def create(path):
 
 
 def assign_files(peers, files):
-    print("FILES: " + files)
+    print("FILES: " + str(files))
     sorted_files = sorted(files, key=lambda x: x[1])
 
     file_assignment = dict.fromkeys(peers, [])
