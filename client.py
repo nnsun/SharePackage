@@ -5,7 +5,7 @@ import sys
 import threading
 
 
-port_num = 8765
+port_num = 9999
 tracker_ip = "192.241.128.177"
 
 def main(args):
@@ -100,6 +100,7 @@ def validate_json(j):
 
 
 def create(path):
+    print(path)
     if not os.path.isdir(path):
         error("Package directory not found")
 
