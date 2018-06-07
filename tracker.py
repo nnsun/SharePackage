@@ -22,9 +22,12 @@ def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((ip, port))
     server_socket.listen(25)
-    while True:
+    try:
+        while True:
         conn, addr = server_socket.accept()
         ConnectionThread(conn, addr).start()
+    except KeyboardInterrupt:
+        server_socket.close()
 
 
 class ConnectionThread(threading.Thread):
