@@ -28,15 +28,18 @@ def main(args):
     if not os.path.isdir(pm_dir):
         os.mkdir(pm_dir)
 
-    package_dir = home + "/p2p-pm/packages"
-    if not os.path.isdir(package_dir):
-        os.mkdir(package_dir)
+    packages_dir = home + "/p2p-pm/packages"
+    if not os.path.isdir(packages_dir):
+        os.mkdir(packages_dir)
 
     if arg1 == "version":
         print("p2p-pm 0.1.0")
     elif arg1 == "install":
         if len(args) != 3:
             error("Usage: python client.py install <package name>")
+        package_dir = package_dir + '/' + args[2]
+        if not os.path.isdir(package_dir):
+            os.mkdir(package_dir)
         install(args[2])
     elif arg1 == "create":
         if len(args) != 3:
