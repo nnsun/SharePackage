@@ -39,6 +39,7 @@ class ConnectionThread(threading.Thread):
     def run(self):
         # commands can either be "install <package name>" or "create <manifest>"
         data = self.conn.recv(1024).decode("utf-8").split(' ')
+        print("Received message: " + data)
         if data[0] == "install":
             if len(data) != 2:
                 self.conn.close()
