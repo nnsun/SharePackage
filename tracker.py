@@ -6,17 +6,17 @@ import threading
 
 port = 9999
 
-connection = sqlite3.connect("tracker.db")
-cursor = connection.cursor()
-
-with open("schema.sql", 'r') as schema:
-    sql_init = schema.read()
-
-cursor.executescript(sql_init)
-connection.commit()
-
-
 def main():
+    connection = sqlite3.connect("tracker.db")
+    cursor = connection.cursor()
+
+    with open("schema.sql", 'r') as schema:
+        sql_init = schema.read()
+
+    cursor.executescript(sql_init)
+    connection.commit()
+    connection.close()
+
     ip = get_ip()
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -49,6 +49,8 @@ class ConnectionThread(threading.Thread):
 
 
     def install(self, name):
+        connection = sqlite3.connect("tracker.db")
+        cursor = connection.cursor()
         command = "SELECT pFILES FROM Packages WHERE pName = " + name
         cursor.execute(command)
         result = cursor.fetchone()[0]
@@ -60,8 +62,12 @@ class ConnectionThread(threading.Thread):
         for row in range(result):
             self.conn.send(str.encode(row[0]))
 
+        connection.close()
+
 
     def create(self, manifest):
+        connection = sqlite3.connect("tracker.db")
+        cursor = connection.cursor()
         manifest_dict = json.loads(manifest)
 
         command = "SELECT * FROM Packages WHERE pName = " + manifest_dict["name"]
@@ -74,6 +80,7 @@ class ConnectionThread(threading.Thread):
                 "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
                 "','" + manifest_dict["files"] + "')")
         connection.commit()
+        connection.close()
 
 
 def get_ip():
