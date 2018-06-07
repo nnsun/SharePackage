@@ -156,7 +156,7 @@ class ReceiveThread(threading.Thread):
     def __init__(self, addr, files):
         super().__init__()
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(addr, 9999)
+        self.client_socket.connect((addr, 9999))
         self.files = files
 
     def run(self):
