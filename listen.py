@@ -27,6 +27,7 @@ class ConnectionThread(threading.Thread):
             with open(file, 'rb') as f:
                 buffer = f.read()
                 self.client_socket.send(buffer)
+        self.client_socket.close()
 
 
 def get_ip():
