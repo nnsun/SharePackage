@@ -152,7 +152,11 @@ def assign_files(peers, files):
     for i in range(len(files)):
         peer = peers[i % len(peers)]
         print(peer)
-        file_assignment[peer] = file_assignment[peer].append(sorted_files[i])
+        curr_list = file_assignment[peer]
+        curr_file = sorted_files[i]
+        print("LIST: " + str(curr_list))
+        print("FILE: " + str(curr_file))
+        file_assignment[peer] = curr_list.append(curr_file)
 
     return file_assignment
 
