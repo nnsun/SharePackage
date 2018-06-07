@@ -55,12 +55,12 @@ class ConnectionThread(threading.Thread):
     def install(self, name):
         connection = sqlite3.connect("tracker.db")
         cursor = connection.cursor()
-        command = "SELECT pFILES FROM Packages WHERE pName = " + name
+        command = "SELECT pFILES FROM Packages WHERE pName = '" + name + "'"
         cursor.execute(command)
         result = cursor.fetchone()[0]
         self.conn.send(str.encode(result))
 
-        command = "SELECT IP FROM PeersMap WHERE pName = " + name
+        command = "SELECT IP FROM PeersMap WHERE pName = '" + name + "'"
         cursor.execute(command)
         result = cursor.fetchall()
         for row in range(result):
