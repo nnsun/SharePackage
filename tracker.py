@@ -64,7 +64,7 @@ class ConnectionThread(threading.Thread):
         result = cursor.fetchall()
 
         for row in result:
-            self.conn.send(str.encode(row[0]))
+            self.conn.send(str.encode(row[0] + '\n'))
         self.conn.send(b"END")
         connection.close()
 
