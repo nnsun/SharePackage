@@ -33,9 +33,8 @@ def main():
 class ConnectionThread(threading.Thread):
     def __init__(self, conn, addr):
         super().__init__()
-        print(str(addr))
         self.conn = conn
-        self.addr = addr
+        self.addr = addr[0]
 
     def run(self):
         # commands can either be "install <package name>" or "create <manifest>"
