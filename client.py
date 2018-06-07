@@ -177,10 +177,10 @@ class ReceiveThread(threading.Thread):
 
         for file in self.files:
             with open(file, 'wb') as f:
-                data = self.conn.recv(4096)
+                data = self.client_socket.recv(4096)
                 while data:
                     f.write(data)
-                    data = self.conn.recv(4096)
+                    data = self.client_socket.recv(4096)
 
 
 if __name__ == "__main__":
