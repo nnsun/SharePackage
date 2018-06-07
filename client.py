@@ -127,7 +127,7 @@ def create(path):
         manifest.write(manifest_json)
 
     sock = connect_tracker()
-    sock.send(str.encode(manifest_json))
+    sock.send(str.encode("create " + manifest_json))
 
 
 def assign_files(peers, files):
