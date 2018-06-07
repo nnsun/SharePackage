@@ -75,9 +75,14 @@ def install(package):
 
     peers = []
     peer = sock.recv(4096).decode("utf-8")
-    while peer and peer != "END":
+    while peer:
         print(peer)
-        peers.append(peer)
+        peers_list = peer.split('\n')
+        for peer in peers_list:
+            if peer != "END":
+                peers.append(peer)
+        if peers_list[len(peers_list) -1] == "END":
+            break
         peer = sock.recv(4096).decode("utf-8")
 
     assignment = assign_files(peers, files)
