@@ -33,7 +33,7 @@ def main():
 class ConnectionThread(threading.Thread):
     def __init__(self, conn, addr):
         super().__init__()
-        print(str(conn))
+        print(str(addr))
         self.conn = conn
         self.addr = addr
 
