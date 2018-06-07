@@ -80,6 +80,12 @@ class ConnectionThread(threading.Thread):
             self.conn.close()
 
         print("FILES: " + str(manifest_dict["files"]))
+        raw_files = str(manifest_dict["files"])
+        files_str = ""
+        for file_str in raw_files:
+            if files_str:
+                files_str += '|'
+            files_str += file_str[0] + ',' + str(file_str[1])
 
         command = ("INSERT INTO Packages VALUES ('" + manifest_dict["name"] + "','" +
                 manifest_dict["description"] + "','" + manifest_dict["version"] +

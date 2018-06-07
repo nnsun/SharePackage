@@ -67,7 +67,11 @@ def install(package):
 
     sock.send(str.encode("install " + package))
 
-    files = sock.recv(4096)
+    files_str = sock.recv(4096)
+    files = []
+    for file_str in files_str.split('|'):
+        file_split = file_str.split(',')
+        files.append([file_split, int(file_split[1])])
 
     peers = []
     peer = sock.recv(4096)
