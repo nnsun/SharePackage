@@ -37,7 +37,7 @@ def main(args):
     elif arg1 == "install":
         if len(args) != 3:
             error("Usage: python client.py install <package name>")
-        package_dir = package_dir + '/' + args[2]
+        package_dir = packages_dir + '/' + args[2]
         if not os.path.isdir(package_dir):
             os.mkdir(package_dir)
         install(args[2])
