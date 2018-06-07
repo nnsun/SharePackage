@@ -162,7 +162,7 @@ class ReceiveThread(threading.Thread):
                 data = self.conn.recv(4096)
                 while data:
                     f.write(data)
-                    data = self.conn.recv(4096
+                    data = self.conn.recv(4096)
 
 
 if __name__ == "__main__":
