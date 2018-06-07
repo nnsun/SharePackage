@@ -24,8 +24,8 @@ def main():
     server_socket.listen(25)
     try:
         while True:
-        conn, addr = server_socket.accept()
-        ConnectionThread(conn, addr).start()
+            conn, addr = server_socket.accept()
+            ConnectionThread(conn, addr).start()
     except KeyboardInterrupt:
         server_socket.close()
 
