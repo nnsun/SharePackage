@@ -39,7 +39,6 @@ class ConnectionThread(threading.Thread):
     def run(self):
         # commands can either be "install <package name>" or "create <manifest>"
         data = self.conn.recv(1024).decode("utf-8").split(' ', 1)
-        print("Received message: " + str(data))
         if data[0] == "install":
             if len(data) != 2:
                 self.conn.close()
@@ -66,7 +65,7 @@ class ConnectionThread(threading.Thread):
 
         for row in result:
             self.conn.send(str.encode(row[0]))
-        self.conn.send(b"")
+        self.conn.send(b"END")
         connection.close()
 
 
@@ -80,7 +79,6 @@ class ConnectionThread(threading.Thread):
         if cursor.rowcount != 0:
             self.conn.close()
 
-        print("FILES: " + str(manifest_dict["files"]))
         raw_files = manifest_dict["files"]
         files_str = ""
         for file_str in raw_files:

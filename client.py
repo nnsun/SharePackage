@@ -75,7 +75,8 @@ def install(package):
 
     peers = []
     peer = sock.recv(4096).decode("utf-8")
-    while peer:
+    while peer and peer != "END":
+        print(peer)
         peers.append(peer)
         peer = sock.recv(4096).decode("utf-8")
 
