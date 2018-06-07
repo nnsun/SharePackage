@@ -74,7 +74,12 @@ def install(package):
     files = []
     for file_str in files_str.split('|'):
         file_split = file_str.split(' ')
-        files.append([file_split[0], int(file_split[1])])
+        try:
+            files.append([file_split[0], int(file_split[1])])
+        except IndexError:
+            print("Package not found")
+            sock.close()
+            return
 
     peers = []
     peer = sock.recv(4096).decode("utf-8")
