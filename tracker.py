@@ -74,7 +74,7 @@ class ConnectionThread(threading.Thread):
         cursor = connection.cursor()
         manifest_dict = json.loads(manifest)
 
-        command = "SELECT * FROM Packages WHERE pName = " + manifest_dict["name"]
+        command = "SELECT * FROM Packages WHERE pName = '" + manifest_dict["name"] + "'"
         cursor.execute(command)
         if cursor.rowcount != 0:
             self.conn.close()
