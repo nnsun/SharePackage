@@ -39,11 +39,11 @@ class ConnectionThread(threading.Thread):
         if data[0] == "install":
             if len(data) != 2:
                 self.conn.close()
-            install(data[1])
+            self.install(data[1])
         elif data[0] == "create":
             if len(data) != 2:
                 self.conn.close()
-            install(data[1])
+            self.create(data[1])
         else:
             self.conn.close()
 
