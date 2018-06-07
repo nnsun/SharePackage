@@ -76,7 +76,6 @@ def install(package):
     peers = []
     peer = sock.recv(4096).decode("utf-8")
     while peer:
-        print(peer)
         peers_list = peer.split('\n')
         for peer in peers_list:
             if peer != "END":
@@ -142,6 +141,7 @@ def create(path):
 
 
 def assign_files(peers, files):
+    print("FILES: " + files)
     sorted_files = sorted(files, key=lambda x: x[1])
 
     file_assignment = dict.fromkeys(peers, [])
