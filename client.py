@@ -6,9 +6,7 @@ import threading
 
 
 port_num = 8765
-
 tracker_ip = "192.241.128.177"
-
 
 def main(args):
     if len(args) < 2 or len(args) > 3:
@@ -18,13 +16,13 @@ def main(args):
 
     # set up user local files if needed
     home = os.path.expanduser("~")
-    dot_dir = home + "/.p2p-pm"
-    if not os.path.isdir(dot_dir):
-        os.mkdir(dot_dir)
+    # dot_dir = home + "/.p2p-pm"
+    # if not os.path.isdir(dot_dir):
+    #     os.mkdir(dot_dir)
 
-    index = dot_dir + "/index"
-    if not os.path.isfile(index):
-        open(index, 'w').close()
+    # index = dot_dir + "/index"
+    # if not os.path.isfile(index):
+    #     open(index, 'w').close()
 
     pm_dir = home + "/p2p-pm"
     if not os.path.isdir(pm_dir):
@@ -92,9 +90,9 @@ def connect_tracker():
 def validate_json(j):
     json_dict = json.loads(j)
     try:
-        if type(json_dict["name"]) != str or type(json_dict["description"]) != str
+        if (type(json_dict["name"]) != str or type(json_dict["description"]) != str
                 or type(json_dict["version"]) != str or type(json_dict["author"]) != str
-                or type(json_dict["dependencies"]) != list:
+                or type(json_dict["dependencies"]) != list):
             error("Error: manifest file is corrupted")
     except KeyError:
         error("Error: manifest file is corrupted")
