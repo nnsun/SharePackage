@@ -67,17 +67,17 @@ def install(package):
 
     sock.send(str.encode("install " + package))
 
-    files_str = sock.recv(4096)
+    files_str = sock.recv(4096).decode("utf-8")
     files = []
     for file_str in files_str.split('|'):
         file_split = file_str.split(' ')
         files.append([file_split, int(file_split[1])])
 
     peers = []
-    peer = sock.recv(4096)
+    peer = sock.recv(4096).decode("utf-8")
     while peer:
         peers.append(peer)
-        peer = sock.recv(4096)
+        peer = sock.recv(4096).decode("utf-8")
 
     assignment = assign_files(peers, files)
     for peer in assignment:
