@@ -87,9 +87,10 @@ class ConnectionThread(threading.Thread):
                 files_str += '|'
             files_str += file_str[0] + ' ' + str(file_str[1])
 
+        # TODO: encode dependencies string
         command = ("INSERT INTO Packages VALUES ('" + manifest_dict["name"] + "','" +
                 manifest_dict["description"] + "','" + manifest_dict["version"] +
-                "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
+                "','" + manifest_dict["author"] + "','" + "" +
                 "','" + files_str + "')")
         cursor.execute(command)
 
