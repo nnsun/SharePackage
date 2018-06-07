@@ -79,8 +79,14 @@ class ConnectionThread(threading.Thread):
                 manifest_dict["description"] + "','" + manifest_dict["version"] +
                 "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
                 "','" + manifest_dict["files"] + "')")
+        cursor.execute(command)
+
+        command = ("INSERT INTO PeersMap VALUES ('" + manifest_dict["name"] + "','" + self.addr + "')")
+        cursor.execute(command)
+
         connection.commit()
         connection.close()
+        print("Added package " + manifest_dict["name"] + " to tracker")
 
 
 def get_ip():
