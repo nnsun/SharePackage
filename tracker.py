@@ -85,12 +85,12 @@ class ConnectionThread(threading.Thread):
         for file_str in raw_files:
             if files_str:
                 files_str += '|'
-            files_str += file_str[0] + ',' + str(file_str[1])
+            files_str += file_str[0] + ' ' + str(file_str[1])
 
         command = ("INSERT INTO Packages VALUES ('" + manifest_dict["name"] + "','" +
                 manifest_dict["description"] + "','" + manifest_dict["version"] +
                 "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
-                "','" + manifest_dict["files"] + "')")
+                "','" + files_str + "')")
         cursor.execute(command)
 
         command = ("INSERT INTO PeersMap VALUES ('" + manifest_dict["name"] + "','" + self.addr + "')")
