@@ -1,0 +1,79 @@
+import json
+import socket
+import sqlite3
+import threading
+
+
+port = 9999
+
+connection = sqlite3.connect("tracker.db")
+cursor = connection.cursor()
+
+with open("schema.sql", 'r') as schema:
+    sql_init = schema.read()
+
+cursor.executescript(sql_init)
+connection.commit()
+
+
+def main():
+    ip = get_ip()
+
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((ip, port))
+    server_socket.listen(25)
+    while True:
+        conn, addr = server_socket.accept()
+        ConnectionThread(conn, addr).start()
+
+
+class ConnectionThread(threading.Thread):
+    def __init__(self, conn, addr):
+        super().__init__()
+        self.client_socket = conn
+        self.addr = addr
+
+    def run(self):
+        # commands can either be "install <package name>" or "create <manifest>"
+        data = self.conn.recv(1024).decode("utf-8").split(' ')
+        if data[0] == "install":
+            if len(data) != 2:
+                self.conn.close()
+            install(data[1])
+        elif data[0] == "create":
+            if len(data) != 2:
+                self.conn.close()
+            install(data[1])
+        else:
+            self.conn.close()
+
+
+    def install(self, name):
+        command = "SELECT pFILES FROM Packages WHERE pName = " + name
+        cursor.execute(command)
+        result = cursor.fetchone()[0]
+        self.conn.send(result)
+
+        command = "SELECT IP FROM PeersMap WHERE pName = " + name
+        cursor.execute(command)
+        result = cursor.fetchall()
+        for row in range(result):
+            self.conn.send(row[0])
+
+
+    def create(self, name):
+    pass
+
+
+
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip = s.getsockname()[0]
+    s.close()
+    return ip
+
+
+
+if __name__ == "__main__":
+    main()
