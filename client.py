@@ -71,7 +71,7 @@ def install(package):
     files = []
     for file_str in files_str.split('|'):
         file_split = file_str.split(' ')
-        files.append([file_split, int(file_split[1])])
+        files.append([file_split[0], int(file_split[1])])
 
     peers = []
     peer = sock.recv(4096).decode("utf-8")
