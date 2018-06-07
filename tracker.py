@@ -63,10 +63,10 @@ class ConnectionThread(threading.Thread):
         command = "SELECT IP FROM PeersMap WHERE pName = '" + name + "'"
         cursor.execute(command)
         result = cursor.fetchall()
-        self.conn.send(str.encode(str(len(result))))
+
         for row in result:
             self.conn.send(str.encode(row[0]))
-
+        self.conn.send(b"")
         connection.close()
 
 
