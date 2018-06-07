@@ -56,11 +56,12 @@ class ConnectionThread(threading.Thread):
         cursor = connection.cursor()
         command = "SELECT pFILES FROM Packages WHERE pName = '" + name + "'"
         cursor.execute(command)
-        if cursor.rowcount == 0:
+        try:
+            result = cursor.fetchone()[0]
+        except TypeError:
             connection.close()
             self.conn.close()
             return
-        result = cursor.fetchone()[0]
         print(result)
         self.conn.send(str.encode(result))
 
