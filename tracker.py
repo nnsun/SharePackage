@@ -79,6 +79,8 @@ class ConnectionThread(threading.Thread):
         if cursor.rowcount != 0:
             self.conn.close()
 
+        print("FILES: " + str(manifest_dict["files"]))
+
         command = ("INSERT INTO Packages VALUES ('" + manifest_dict["name"] + "','" +
                 manifest_dict["description"] + "','" + manifest_dict["version"] +
                 "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
