@@ -61,9 +61,19 @@ class ConnectionThread(threading.Thread):
             self.conn.send(row[0])
 
 
-    def create(self, name):
-    pass
+    def create(self, manifest):
+        manifest_dict = json.loads(manifest)
 
+        command = "SELECT * FROM Packages WHERE pName = " + manifest_dict["name"]
+        cursor.execute(command)
+        if cursor.rowcount != 0:
+            self.conn.close()
+
+        command = ("INSERT INTO Packages VALUES ('" + manifest_dict["name"] + "','" +
+                manifest_dict["description"] + "','" + manifest_dict["version"] +
+                "','" + manifest_dict["author"] + "','" + manifest_dict["dependencies"] +
+                "','" + manifest_dict["files"] + "')")
+        connection.commit()
 
 
 def get_ip():

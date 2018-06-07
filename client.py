@@ -128,6 +128,9 @@ def create(path):
     with open(path + "/manifest.json", 'w') as manifest:
         manifest.write(manifest_json)
 
+    sock = connect_tracker()
+    sock.send(manifest_json)
+
 
 def assign_files(peers, files):
     sorted_files = sorted(files, key=lambda x: x[1])
@@ -161,8 +164,7 @@ class ReceiveThread(threading.Thread):
                 data = self.conn.recv(4096)
                 while data:
                     f.write(data)
-                    data = self.conn.recv(4096)
-
+                    data = self.conn.recv(4096
 
 
 if __name__ == "__main__":
