@@ -147,7 +147,7 @@ def assign_files(peers, files):
     sorted_files = sorted(files, key=lambda x: x[1])
 
     file_assignment = dict.fromkeys(peers, [])
-    print("INITIAL ASSIGNMENT: " + file_assignment)
+    print("INITIAL ASSIGNMENT: " + str(file_assignment))
 
     for i in range(len(files)):
         peer = peers[i % len(peers)]
