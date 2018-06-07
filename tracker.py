@@ -80,7 +80,7 @@ class ConnectionThread(threading.Thread):
             self.conn.close()
 
         print("FILES: " + str(manifest_dict["files"]))
-        raw_files = str(manifest_dict["files"])
+        raw_files = manifest_dict["files"]
         files_str = ""
         for file_str in raw_files:
             if files_str:
