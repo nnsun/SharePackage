@@ -61,6 +61,7 @@ class ConnectionThread(threading.Thread):
             self.conn.close()
             return
         result = cursor.fetchone()[0]
+        print(result)
         self.conn.send(str.encode(result))
 
         command = "SELECT IP FROM PeersMap WHERE pName = '" + name + "'"
