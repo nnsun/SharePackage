@@ -65,7 +65,7 @@ def error(msg):
 def install(package):
     sock = connect_tracker()
 
-    sock.send("install " + package)
+    sock.send(str.encode("install " + package))
 
     files = sock.recv(4096)
 
@@ -100,7 +100,6 @@ def validate_json(j):
 
 
 def create(path):
-    print(path)
     if not os.path.isdir(path):
         error("Package directory not found")
 

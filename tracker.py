@@ -30,7 +30,7 @@ def main():
 class ConnectionThread(threading.Thread):
     def __init__(self, conn, addr):
         super().__init__()
-        self.client_socket = conn
+        self.conn = conn
         self.addr = addr
 
     def run(self):
@@ -52,13 +52,13 @@ class ConnectionThread(threading.Thread):
         command = "SELECT pFILES FROM Packages WHERE pName = " + name
         cursor.execute(command)
         result = cursor.fetchone()[0]
-        self.conn.send(result)
+        self.conn.send(str.encode(result))
 
         command = "SELECT IP FROM PeersMap WHERE pName = " + name
         cursor.execute(command)
         result = cursor.fetchall()
         for row in range(result):
-            self.conn.send(row[0])
+            self.conn.send(str.encode(row[0]))
 
 
     def create(self, manifest):
