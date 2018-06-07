@@ -135,7 +135,7 @@ def assign_files(peers, files):
 
     file_assignment = dict.fromkeys(peers, [])
 
-    for i in range(len(num_files)):
+    for i in range(len(files)):
         peer = peers[i % len(peers)]
         file_assignment[peer] = file_assignment[peer].append(sorted_files[i])
 
